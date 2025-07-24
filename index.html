@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
         <link rel="stylesheet" href="css/qgis2web.css">
         <link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/filter.css">
+<link rel="stylesheet" href="css/nouislider.min.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <style>
         html, body, #map {
@@ -19,7 +21,7 @@
             margin: 0;
         }
         </style>
-        <title>Peta Pemamfaatan Lahan Kelolah</title>
+        <title>Pemamfaatan Lahan</title>
     </head>
     <body>
         <div id="map">
@@ -35,11 +37,14 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet.photon.js"></script>
-        <script src="data/PemamfaatanlahanFinal_1.js"></script>
+        <script src="js/tailDT.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/wNumb.js"></script>
+        <script src="data/PemamfaatanLahanSepontiJayaFinal_1.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[-0.9620848903324317,109.71562935520231],[-0.8512220509666404,109.86984908145872]]);
+        }).fitBounds([[-0.8863023017213636,109.78736170217293],[-0.8311391646327316,109.86411484482727]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -71,16 +76,6 @@
 				popup._contentNode.classList.remove('media');
 			}
 		}
-        var title = new L.Control({'position':'topright'});
-        title.onAdd = function (map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this.update();
-            return this._div;
-        };
-        title.update = function () {
-            this._div.innerHTML = '<h2>Peta Pemamfaatan Lahan Kelolah</h2>';
-        };
-        title.addTo(map);
         var zoomControl = L.control.zoom({
             position: 'topleft'
         }).addTo(map);
@@ -100,7 +95,7 @@
         });
         layer_OSMStandard_0;
         map.addLayer(layer_OSMStandard_0);
-        function pop_PemamfaatanlahanFinal_1(feature, layer) {
+        function pop_PemamfaatanLahanSepontiJayaFinal_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">Keterangan</th>\
@@ -111,20 +106,20 @@
                         <td>' + (feature.properties['Luas_Ha'] !== null ? autolinker.link(String(feature.properties['Luas_Ha']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
+                        <th scope="row">WADMKC</th>\
+                        <td>' + (feature.properties['WADMKC'] !== null ? autolinker.link(String(feature.properties['WADMKC']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
                         <th scope="row">WADMKD</th>\
                         <td>' + (feature.properties['WADMKD'] !== null ? autolinker.link(String(feature.properties['WADMKD']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">WIADKC</th>\
-                        <td>' + (feature.properties['WIADKC'] !== null ? autolinker.link(String(feature.properties['WIADKC']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">WADMKK</th>\
+                        <td>' + (feature.properties['WADMKK'] !== null ? autolinker.link(String(feature.properties['WADMKK']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">WIADKK</th>\
-                        <td>' + (feature.properties['WIADKK'] !== null ? autolinker.link(String(feature.properties['WIADKK']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">WIADPR</th>\
-                        <td>' + (feature.properties['WIADPR'] !== null ? autolinker.link(String(feature.properties['WIADPR']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">WADMPR</th>\
+                        <td>' + (feature.properties['WADMPR'] !== null ? autolinker.link(String(feature.properties['WADMPR']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -134,9 +129,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_PemamfaatanlahanFinal_1_0() {
+        function style_PemamfaatanLahanSepontiJayaFinal_1_0() {
             return {
-                pane: 'pane_PemamfaatanlahanFinal_1',
+                pane: 'pane_PemamfaatanLahanSepontiJayaFinal_1',
                 opacity: 1,
                 color: 'rgba(35,35,35,1.0)',
                 dashArray: '',
@@ -145,26 +140,26 @@
                 weight: 1.0, 
                 fill: true,
                 fillOpacity: 1,
-                fillColor: 'rgba(141,90,153,1.0)',
+                fillColor: 'rgba(152,125,183,1.0)',
                 interactive: true,
             }
         }
-        map.createPane('pane_PemamfaatanlahanFinal_1');
-        map.getPane('pane_PemamfaatanlahanFinal_1').style.zIndex = 401;
-        map.getPane('pane_PemamfaatanlahanFinal_1').style['mix-blend-mode'] = 'normal';
-        var layer_PemamfaatanlahanFinal_1 = new L.geoJson(json_PemamfaatanlahanFinal_1, {
+        map.createPane('pane_PemamfaatanLahanSepontiJayaFinal_1');
+        map.getPane('pane_PemamfaatanLahanSepontiJayaFinal_1').style.zIndex = 401;
+        map.getPane('pane_PemamfaatanLahanSepontiJayaFinal_1').style['mix-blend-mode'] = 'normal';
+        var layer_PemamfaatanLahanSepontiJayaFinal_1 = new L.geoJson(json_PemamfaatanLahanSepontiJayaFinal_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_PemamfaatanlahanFinal_1',
-            layerName: 'layer_PemamfaatanlahanFinal_1',
-            pane: 'pane_PemamfaatanlahanFinal_1',
-            onEachFeature: pop_PemamfaatanlahanFinal_1,
-            style: style_PemamfaatanlahanFinal_1_0,
+            dataVar: 'json_PemamfaatanLahanSepontiJayaFinal_1',
+            layerName: 'layer_PemamfaatanLahanSepontiJayaFinal_1',
+            pane: 'pane_PemamfaatanLahanSepontiJayaFinal_1',
+            onEachFeature: pop_PemamfaatanLahanSepontiJayaFinal_1,
+            style: style_PemamfaatanLahanSepontiJayaFinal_1_0,
         });
-        bounds_group.addLayer(layer_PemamfaatanlahanFinal_1);
-        map.addLayer(layer_PemamfaatanlahanFinal_1);
+        bounds_group.addLayer(layer_PemamfaatanLahanSepontiJayaFinal_1);
+        map.addLayer(layer_PemamfaatanLahanSepontiJayaFinal_1);
         var overlaysTree = [
-            {label: '<img src="legend/PemamfaatanlahanFinal_1.png" /> Pemamfaatan lahan Final', layer: layer_PemamfaatanlahanFinal_1},
+            {label: '<img src="legend/PemamfaatanLahanSepontiJayaFinal_1.png" /> Pemamfaatan Lahan Seponti Jaya Final', layer: layer_PemamfaatanLahanSepontiJayaFinal_1},
             {label: "OSM Standard", layer: layer_OSMStandard_0},]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
@@ -173,10 +168,201 @@
             //openedSymbol: '&#8863; &#x1f5c1;',
             //collapseAll: 'Collapse all',
             //expandAll: 'Expand all',
-            collapsed: true,
+            collapsed: false, 
         });
         lay.addTo(map);
+		document.addEventListener("DOMContentLoaded", function() {
+            // set new Layers List height which considers toggle icon
+            function newLayersListHeight() {
+                var layerScrollbarElement = document.querySelector('.leaflet-control-layers-scrollbar');
+                if (layerScrollbarElement) {
+                    var layersListElement = document.querySelector('.leaflet-control-layers-list');
+                    var originalHeight = layersListElement.style.height 
+                        || window.getComputedStyle(layersListElement).height;
+                    var newHeight = parseFloat(originalHeight) - 50;
+                    layersListElement.style.height = newHeight + 'px';
+                }
+            }
+            var isLayersListExpanded = true;
+            var controlLayersElement = document.querySelector('.leaflet-control-layers');
+            var toggleLayerControl = document.querySelector('.leaflet-control-layers-toggle');
+            // toggle Collapsed/Expanded and apply new Layers List height
+            toggleLayerControl.addEventListener('click', function() {
+                if (isLayersListExpanded) {
+                    controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                } else {
+                    controlLayersElement.classList.add('leaflet-control-layers-expanded');
+                }
+                isLayersListExpanded = !isLayersListExpanded;
+                newLayersListHeight()
+            });	
+			// apply new Layers List height if toggle layerstree
+			if (controlLayersElement) {
+				controlLayersElement.addEventListener('click', function(event) {
+					var toggleLayerHeaderPointer = event.target.closest('.leaflet-layerstree-header-pointer span');
+					if (toggleLayerHeaderPointer) {
+						newLayersListHeight();
+					}
+				});
+			}
+            // Collapsed/Expanded at Start to apply new height
+            setTimeout(function() {
+                toggleLayerControl.click();
+            }, 10);
+            setTimeout(function() {
+                toggleLayerControl.click();
+            }, 10);
+            // Collapsed touch/small screen
+            var isSmallScreen = window.innerWidth < 650;
+            if (isSmallScreen) {
+                setTimeout(function() {
+                    controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                    isLayersListExpanded = !isLayersListExpanded;
+                }, 500);
+            }  
+        });       
         setBounds();
+        var mapDiv = document.getElementById('map');
+        var row = document.createElement('div');
+        row.className="row";
+        row.id="all";
+        row.style.height = "100%";
+        var col1 = document.createElement('div');
+        col1.className="col9";
+        col1.id = "mapWindow";
+        col1.style.height = "99%";
+        col1.style.width = "80%";
+        col1.style.display = "inline-block";
+        var col2 = document.createElement('div');
+        col2.className="col3";
+        col2.id = "menu";
+        col2.style.display = "inline-block";
+        mapDiv.parentNode.insertBefore(row, mapDiv);
+        document.getElementById("all").appendChild(col1);
+        document.getElementById("all").appendChild(col2);
+        col1.appendChild(mapDiv)
+        var Filters = {"Luas_Ha": "real"};
+        function filterFunc() {
+          map.eachLayer(function(lyr){
+          if ("options" in lyr && "dataVar" in lyr["options"]){
+            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            try{
+              for (key in Filters){
+                keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
+                if (Filters[key] == "str" || Filters[key] == "bool"){
+                  var selection = [];
+                  var options = document.getElementById("sel_" + keyS).options
+                  for (var i=0; i < options.length; i++) {
+                    if (options[i].selected) selection.push(options[i].value);
+                  }
+                    try{
+                      if (key in features[0].properties){
+                        for (i = features.length - 1;
+                          i >= 0; --i){
+                          if (selection.indexOf(
+                          features[i].properties[key])<0
+                          && selection.length>0) {
+                          features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                  }
+                }
+                if (Filters[key] == "int"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (parseInt(features[i].properties[key])
+                          < sliderVals[0]
+                          || parseInt(features[i].properties[key])
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "real"){
+                  sliderVals =  document.getElementById(
+                    "div_" + keyS).noUiSlider.get();
+                  try{
+                    if (key in features[0].properties){
+                    for (i = features.length - 1; i >= 0; --i){
+                      if (features[i].properties[key]
+                          < sliderVals[0]
+                          || features[i].properties[key]
+                          > sliderVals[1]){
+                            features.splice(i,1);
+                          }
+                        }
+                      }
+                    } catch(err){
+                    }
+                  }
+                if (Filters[key] == "date"
+                  || Filters[key] == "datetime"
+                  || Filters[key] == "time"){
+                  try{
+                    if (key in features[0].properties){
+                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
+                      startdate = document.getElementById("dat_" +
+                        HTMLkey + "_date1").value.replace(" ", "T");
+                      enddate = document.getElementById("dat_" +
+                        HTMLkey + "_date2").value.replace(" ", "T");
+                      for (i = features.length - 1; i >= 0; --i){
+                        if (features[i].properties[key] < startdate
+                          || features[i].properties[key] > enddate){
+                          features.splice(i,1);
+                        }
+                      }
+                    }
+                  } catch(err){
+                  }
+                }
+              }
+            } catch(err){
+            }
+          this[lyr["options"]["layerName"]].clearLayers();
+          this[lyr["options"]["layerName"]].addData(features);
+          }
+          })
+        }
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_Luas_Ha = document.createElement("div");
+            div_Luas_Ha.id = "div_Luas_Ha";
+            div_Luas_Ha.className = "slider";
+            document.getElementById("menu").appendChild(div_Luas_Ha);
+            var lab_Luas_Ha = document.createElement('div');
+            lab_Luas_Ha.innerHTML  = 'Luas_Ha: <span id="val_Luas_Ha"></span>';
+            lab_Luas_Ha.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_Luas_Ha);
+            var reset_Luas_Ha = document.createElement('div');
+            reset_Luas_Ha.innerHTML = 'clear filter';
+            reset_Luas_Ha.className = 'filterlabel';
+            lab_Luas_Ha.className = 'filterlabel';
+            reset_Luas_Ha.onclick = function() {
+                sel_Luas_Ha.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_Luas_Ha);
+            var sel_Luas_Ha = document.getElementById('div_Luas_Ha');
+            noUiSlider.create(sel_Luas_Ha, {
+                connect: true,
+                start: [0.95, 293.67],
+                range: {
+                min: 0.95,
+                max: 293.67
+                }
+            });
+            sel_Luas_Ha.noUiSlider.on('update', function (values) {
+            val_Luas_Ha = document.getElementById('val_Luas_Ha');
+            val_Luas_Ha.innerHTML = values.join(' - ');
+                filterFunc()
+            });
         </script>
     </body>
 </html>
